@@ -352,6 +352,7 @@ class LightManager(object):
         self.data.plot(column='route_type', ax=axs[1], legend=add_legend)
         axs[1].set_axis_off()
         axs[1].title.set_text('Calculated paths')
+        fig.tight_layout(pad=5)
 
         return fig
 
