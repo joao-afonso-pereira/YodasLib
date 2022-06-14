@@ -90,7 +90,7 @@ class LightManager(object):
         self.data.geometry.plot(ax=axs[1], color='white', edgecolor='black')
         self.data.centroid.plot(ax=axs[1], color='red', markersize = 10)
 
-        return self.data['centroids']
+        return fig
 
     def plot_clusters(self):
       
@@ -110,8 +110,9 @@ class LightManager(object):
         self.clusters.centroids.plot(ax=axs[1], color='red', markersize = 30)
         axs[1].set_axis_off()
         axs[1].title.set_text('Clusters')
+        fig.tight_layout(pad=5)
 
-        return self.clusters, fig
+        return fig
         
     
     def create_cost_matrix(self):
@@ -208,7 +209,7 @@ class LightManager(object):
 
         return path
     
-    def find_cluster_paths(self, plots = False):
+    def find_cluster_paths(self, plots = True):
         cl_1 = 0
         while cl_1 < len(self.clusters) - 1:
             zone_1 = self.clusters.at[cl_1, 'zone']
@@ -224,7 +225,7 @@ class LightManager(object):
         if plots:
 
             # Plot all paths
-            self.plot()
+            self.plot_paths()
 
         return pd.DataFrame(self.paths)
     
@@ -318,11 +319,12 @@ class LightManager(object):
             # Cluster zones
             self.clusters.centroids.plot(ax=axs[1], color='green', markersize = 40, label = 'Bat Clusters Centers')
             axs[1].legend(loc="upper right")
+            fig.tight_layout(pad=5)
         
         return self.new_lights, fig
         
     
-    def plot(self):
+    def plot_paths(self, add_legend=False):
         #######
         # Plots all calculated paths
         #######
@@ -338,10 +340,20 @@ class LightManager(object):
             self.data.loc[self.data.zone.isin(path['path']), 'route_type'] = f"Path {path['ID']} | Score: {path['score']}"
         
         # Plot
-        fig, ax = plt.subplots(figsize=(30, 20))
-        self.data.plot(ax=ax, color='white', edgecolor='black')
-        self.data.plot(column='route_type', ax=ax, legend=True, legend_kwds={'fontsize':15})
-        ax.set_axis_off()
+        fig, axs = plt.subplots(1,2, figsize = (15, 15), sharex = True)
+
+        # Original Lighting
+        self.map.plot(color='#0A0E42', ax=axs[0])
+        self.streetlights_gdf.plot(markersize=0.5, ax=axs[0], color='gold', alpha=0.5)
+        axs[0].set_axis_off()
+        axs[0].title.set_text('Original Lighting')
+
+        self.data.plot(ax=axs[1], color='white', edgecolor='black')
+        self.data.plot(column='route_type', ax=axs[1], legend=add_legend, legend_kwds={'fontsize':15})
+        axs[1].set_axis_off()
+        axs[1].title.set_text('Calculated paths')
+
+        return fig
 
     
     def save_cost_matrix(self, filename = 'cost_matrix.csv'):
