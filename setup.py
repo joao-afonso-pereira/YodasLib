@@ -4,7 +4,7 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="YodasLib",
+    name="YODAS",
     version="v0.0.0",
     author="YODAS (Your Omnipotent Data Scientists) - WDL 2022",
     author_email="joaoafonsoppereira@gmail.com",

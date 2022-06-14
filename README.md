@@ -54,7 +54,7 @@ pip install git+https://github.com/joao-afonso-pereira/YodasLib.git
 
 ### Usage example
 ```python 
-import YodasLib.DarkCorridors import LightManager
+import YODAS.DarkCorridors import LightManager
 
 # Necessary data:
 #  - City grid with the following columns: zone, geometry, animal_score, human_score, contains_cluster, nearest_cluster, cluster_score
