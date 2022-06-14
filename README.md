@@ -4,7 +4,7 @@ World Data Lesgue team YODAS - Python package
 <img src="ýodas.png" width=25% height=25%>
 
 
-# iLoF Data Science Utils (iloflib)
+# YODAS Utils (YodasLib)
 
 Utils for the development of data science projects. The repository works as a Python package than should be used to ensure methods standardization.
 
