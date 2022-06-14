@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="YODAS",
-    version="v0.0.0",
+    version="v0.1.0",
     author="YODAS (Your Omnipotent Data Scientists) - WDL 2022",
     author_email="joaoafonsoppereira@gmail.com",
     description="Utils and local app for dark corridors optimization.",
