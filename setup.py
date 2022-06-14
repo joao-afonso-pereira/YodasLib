@@ -17,7 +17,7 @@ setuptools.setup(
     ],
     install_requires=[
         'numpy',
-        'geopandas>=0.10.2'
+        'geopandas',
         'pandas',
         'matplotlib',
         'Dijkstar',
