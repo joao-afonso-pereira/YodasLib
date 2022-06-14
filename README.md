@@ -1,12 +1,16 @@
 # YodasLib
-World Data Lesgue team YODAS - Python package
+World Data League 2022 team YODAS - Python package
 
 <img src="ýodas.png" width=25% height=25%>
 
 
-# YODAS Utils (YodasLib)
+# YODAS Custom Python Package (YodasLib)
 
-Utils for the development of data science projects. The repository works as a Python package than should be used to ensure methods standardization.
+This Python package includes a module for wildlife dark corridors optimization, one of the outputs of the YODAS team in 2022 edition of WDL.
+
+# YODAS Custom Application ([get installer here](https://drive.google.com/drive/folders/1Tlgi7uc7n5IB7NKZArXi6nPkIJvfcZLv?usp=sharing))
+
+YodasLib is used in the custom application developed by YODAS for the WDL 2022 finals. This application allows the user to customize and visualize in real time the optimization of wildlife dark corridors and is flexibility to any animal and city. 
 
 ## Installation
 
@@ -61,19 +65,17 @@ import YODAS.DarkCorridors import LightManager
 #  - GeoJSON with city map
 #  - CSV with city's street lights
 
-optimization_df = pd.read_csv('y0.csv') # City grid
-optimization_df.rename(columns = {'Unnamed: 0': 'zone'}, inplace = True)
-optimization_df.geometry = gpd.GeoSeries.from_wkt(optimization_df.geometry)
-optimization_df = gpd.GeoDataFrame(optimization_df, geometry='geometry')
+grid_df = pd.read_csv('grid.csv') # City grid
+grid_df.geometry = gpd.GeoSeries.from_wkt(grid_df.geometry)
+grid_df = gpd.GeoDataFrame(grid_df, geometry='geometry')
 
 city_map = 'https://martinjc.github.io/UK-GeoJSON/json/eng/wpc_by_lad/topo_E06000023.json' # Path to geojson with city map
 street_lights = 'streetlights_2022.csv' # Path to CSV with street lights
 
-manager = LightManager(optimization_df, city_map, street_lights)
+manager = LightManager(grid_df, city_map, street_lights)
+    
 clusters = manager.plot_clusters()
-
-manager.load('cost_matrix_y0.csv')
-
+manager.load('cost_matrix.csv')
 paths = manager.find_cluster_paths()
 corridors = manager.create_dark_corridors()
 new_lights = manager.update_lighting()
