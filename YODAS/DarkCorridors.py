@@ -349,7 +349,7 @@ class LightManager(object):
         axs[0].title.set_text('Original Lighting')
 
         self.data.plot(ax=axs[1], color='white', edgecolor='black')
-        self.data.plot(column='route_type', ax=axs[1], legend=add_legend, legend_kwds={'fontsize':15})
+        self.data.plot(column='route_type', ax=axs[1], legend=add_legend)
         axs[1].set_axis_off()
         axs[1].title.set_text('Calculated paths')
 
