@@ -15,7 +15,7 @@ warnings.filterwarnings('ignore')
 
 class LightManager(object):
     def __init__(self, data, city_map_path, street_lights_path, animal_importance = None, max_importance = 0.8, prints = True):
-        # max_importance is teh maximum weight a factor can have for the optimization
+        # max_importance is the maximum weight a factor can have for the optimization
         
         # city zone dataframe (zone, geometry, danger score)
         self.data = data 
@@ -111,10 +111,10 @@ class LightManager(object):
         axs[1].set_axis_off()
         axs[1].title.set_text('Clusters')
 
-        return self.clusters
+        return self.clusters, fig
         
     
-    def create_matrix(self):
+    def create_cost_matrix(self):
         #######
         # Creates cost matrix
         #######
@@ -319,7 +319,7 @@ class LightManager(object):
             self.clusters.centroids.plot(ax=axs[1], color='green', markersize = 40, label = 'Bat Clusters Centers')
             axs[1].legend(loc="upper right")
         
-        return self.new_lights, 
+        return self.new_lights, fig
         
     
     def plot(self):
@@ -344,7 +344,7 @@ class LightManager(object):
         ax.set_axis_off()
 
     
-    def save(self, filename = 'cost_matrix.csv'):
+    def save_cost_matrix(self, filename = 'cost_matrix.csv'):
         #######
         # Saves cost matrix as .csv
         #######
@@ -354,7 +354,7 @@ class LightManager(object):
 
         print('Saved files successfully!')
         
-    def load(self, filename = 'cost_matrix.csv'):
+    def load_cost_matrix(self, filename = 'cost_matrix.csv'):
         #######
         # Loads main cost matrixes (distance) from .csv
         #######
@@ -370,10 +370,10 @@ class LightManager(object):
         except:
             print('Unable to load files! Confirm file existance.')
     
-    def build(self):
+    def build_cost_matrix(self):
         #######
         # Builds object from scratch without loading information
         #######
-        self.create_matrix()
-        self.save()        
+        self.create_cost_matrix()
+        self.save_cost_matrix()        
     
