@@ -77,7 +77,7 @@ optimization_df = gpd.GeoDataFrame(optimization_df, geometry='geometry')
 city_map = 'https://martinjc.github.io/UK-GeoJSON/json/eng/wpc_by_lad/topo_E06000023.json'
 street_lights = 'streetlights.csv' 
 
-manager = LightManager_(optimization_df, city_map, street_lights)
+manager = LightManager(optimization_df, city_map, street_lights)
 manager.plot_clusters()
 
 manager.load_cost_matrix('cost_matrix.csv')
