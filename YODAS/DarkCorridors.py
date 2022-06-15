@@ -383,10 +383,11 @@ class LightManager(object):
         except:
             print('Unable to load files! Confirm file existance.')
     
-    def build_cost_matrix(self, save_file):
+    def build_cost_matrix(self, save_file=False, filename='cost_matrix.csv'):
         #######
         # Builds object from scratch without loading information
         #######
         self.create_cost_matrix()
-        self.save_cost_matrix(filename=save_file)        
+        if save_file:
+            self.save_cost_matrix(filename=filename)        
     
