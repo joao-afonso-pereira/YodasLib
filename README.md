@@ -60,25 +60,30 @@ pip install git+https://github.com/joao-afonso-pereira/YodasLib.git
 
 ### Usage example
 ```python 
-import YODAS.DarkCorridors import LightManager
-
 # Necessary data:
 #  - City grid with the following columns: zone, geometry, animal_score, human_score, contains_cluster, nearest_cluster, cluster_score
 #  - GeoJSON with city map
 #  - CSV with city's street lights
 
-grid_df = pd.read_csv('grid.csv') # City grid
-grid_df.geometry = gpd.GeoSeries.from_wkt(grid_df.geometry)
-grid_df = gpd.GeoDataFrame(grid_df, geometry='geometry')
+import pandas as pd
+import geopandas as gpd
+from YODAS.DarkCorridors import LightManager
 
-city_map = 'https://martinjc.github.io/UK-GeoJSON/json/eng/wpc_by_lad/topo_E06000023.json' # Path to geojson with city map
-street_lights = 'streetlights_2022.csv' # Path to CSV with street lights
+optimization_df = pd.read_csv('grid.csv')
+#optimization_df.rename(columns = {'Unnamed: 0': 'zone'}, inplace = True)
+optimization_df.geometry = gpd.GeoSeries.from_wkt(optimization_df.geometry)
+optimization_df = gpd.GeoDataFrame(optimization_df, geometry='geometry')
 
-manager = LightManager(grid_df, city_map, street_lights)
-    
-clusters = manager.plot_clusters()
-manager.load('cost_matrix.csv')
+city_map = 'https://martinjc.github.io/UK-GeoJSON/json/eng/wpc_by_lad/topo_E06000023.json'
+street_lights = 'streetlights.csv' 
+
+manager = LightManager_(optimization_df, city_map, street_lights)
+manager.plot_clusters()
+
+manager.load_cost_matrix('cost_matrix.csv')
+
 paths = manager.find_cluster_paths()
+manager.plot_paths()
 corridors = manager.create_dark_corridors()
 new_lights = manager.update_lighting()
 ```
